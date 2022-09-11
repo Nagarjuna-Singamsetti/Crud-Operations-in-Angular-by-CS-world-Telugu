@@ -1,0 +1,57 @@
+<div *ngIf="users; else error" class="container mob-table">
+    <div class="headers">
+        <h2 class="table-title">Manage Users</h2>
+        <button class="btn add" (click)="openForm()">Add User</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr *ngFor="let user of users">
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.age}}</td>
+                <td><button class="btn btn-primary" (click)="openForm(user)">Edit </button></td>
+                <td><button class="btn btn-danger" (click)="deleteUser(user.id)">Remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #error>
+    <h2 class="text-danger">Error Fetching Data</h2>
+</ng-template>
+
+<div class="form-wrapper" *ngIf="showForm">
+    <div class="userForm">
+        <h2 class="text-center text-info">{{formHeader}}</h2>
+        <div class="group">
+            <label for="">FirstName:</label>
+            <input type="text" class="form-control" name="firstname" required maxlength="15" pattern="^[a-zA-Z]+$"  [(ngModel)]="firstname">
+        </div>
+        <div class="group">
+            <label for="">LastName:</label>
+            <input type="text" class="form-control" name="lastname" required maxlength="15" pattern="^[a-zA-Z]+$"  [(ngModel)]="lastname">
+        </div>
+        <div class="group">
+            <label for="">Email:</label>
+            <input type="text" class="form-control" [(ngModel)]="email" name="email" email required >
+        </div>
+        <div class="group">
+            <label for="">Age:</label>
+            <input type="text" class="form-control" [(ngModel)]="age" name="age" required minlength="2">
+        </div>
+        <div class="action">
+            <button class="btn btn-primary save" (click)="saveUser()">Save</button>
+            <button class="btn btn-danger cancel" (click)="closeForm()">Cancel</button>
+        </div>
+    </div>
+</div>
